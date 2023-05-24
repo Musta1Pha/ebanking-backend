@@ -1,11 +1,15 @@
 package com.example.ebankingbackend;
 
+import com.example.ebankingbackend.dtos.CurrentBankAccountDTO;
+import com.example.ebankingbackend.dtos.CustomerDTO;
+import com.example.ebankingbackend.dtos.SavingBankAccountDTO;
 import com.example.ebankingbackend.entities.*;
 import com.example.ebankingbackend.enums.AccountStatus;
 import com.example.ebankingbackend.enums.OperationType;
 import com.example.ebankingbackend.repositories.AccountOperationRepository;
 import com.example.ebankingbackend.repositories.BankAccountRepository;
 import com.example.ebankingbackend.repositories.CustomerRepository;
+import com.example.ebankingbackend.services.BankAccountService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +27,30 @@ public class EbankingBackendApplication {
         SpringApplication.run(EbankingBackendApplication.class, args);
     }
 
-    @Bean
+    //@Bean
+    CommandLineRunner commandLineRunner(BankAccountService bankAccountService) {
+        return args -> {
+            Stream.of("Hassan", "Yassine", "Aziz").forEach(name -> {
+                CustomerDTO customer = new CustomerDTO();
+                customer.setName(name);
+                customer.setEmail(name + "@gmail.com");
+                bankAccountService.saveCustomer(customer);
+            });
+            bankAccountService.listCustomers().forEach(customer -> {
+                bankAccountService.saveCurrentBankAccount(Math.random() * 90000, customer.getId(), 9000);
+                bankAccountService.saveSavingBankAccount(Math.random() * 120000, customer.getId(), 5.5);
+                bankAccountService.bankAccountsList().forEach(b -> {
+                    String s ;
+                    if(b instanceof SavingBankAccountDTO) s = ((SavingBankAccountDTO) b).getId();
+                    else s = ((CurrentBankAccountDTO) b).getId();
+                    bankAccountService.credit(s, 10000 + Math.random() * 120000, "Credit");
+                    bankAccountService.debit(s, 100 + Math.random() * 1200, "Debit");
+                });
+            });
+        };
+    }
+
+    /*@Bean
     CommandLineRunner start(CustomerRepository customerRepository, BankAccountRepository bankAccountRepository, AccountOperationRepository accountOperationRepository) {
         return args -> {
             Stream.of("Hassan","Yassine","Aziz").forEach(cust -> {
@@ -69,6 +96,7 @@ public class EbankingBackendApplication {
                 accountOperationRepository.save(accountOperation);
             });
         };
-    }
+    }*/
 
 }
+
