@@ -29,25 +29,28 @@ La création des entités JPA (Java Persistence API) est une étape cruciale lor
 
 <h4>Configuration de la base de donnée</h4>
 
-<h5>H2 Database</h5>
-<h6>Visualisation des tables sur la plateforme H2 Database. En utilisant l'interface web de H2 Database</h6>
+- <h5>H2 Database</h5>
+- <h6>Visualisation des tables sur la plateforme H2 Database. En utilisant l'interface web de H2 Database</h6>
 
 ![j2EE-github-h2](https://github.com/Musta1Pha/Ressources/assets/91842692/c80f624a-d4ff-4f11-8e5c-e968b95b5fcb)
+
 ![j2EE-github-h2-console](https://github.com/Musta1Pha/Ressources/assets/91842692/dee84cb2-b1e3-4499-834d-cbde8516168b)
 
-<h5>MySql Database</h5>
-<h6>Visualisation des tables sur la plateforme PhpMyAdmin (Exemple Precedent : Classe BanAccount)</h6>
+- <h5>MySql Database</h5>
+- <h6>Visualisation des tables sur la plateforme PhpMyAdmin (Exemple Precedent : Classe BanAccount)</h6>
 
 ![j2EE-github-mysql](https://github.com/Musta1Pha/Ressources/assets/91842692/a81c5b95-4914-450f-806b-6e488c484912)
 
-<h4>Ajout des deux types de comptes pour chaque client déja enregistré ainsi que les opérations de débit et crédit</h4>
+- <h4>Ajout des deux types de comptes pour chaque client déja enregistré ainsi que les opérations de débit et crédit</h4>
 
 ![j2EE-github-main](https://github.com/Musta1Pha/Ressources/assets/91842692/9a9b1991-3737-4145-abcb-b64f2791db5d)
+
 ![j2EE-github-main2](https://github.com/Musta1Pha/Ressources/assets/91842692/ebea13d9-989b-4071-8a08-eb0b11e90b8f)
 
-<h4>Implementation l'interface BankAccountService, qui a pour objectif de définir les méthodes nécessaires pour la création de comptes bancaires ainsi que les opérations associées telles que le débit, le crédit et le transfert d'argent entre comptes.</h4>
+- <h4>Implementation l'interface BankAccountService, qui a pour objectif de définir les méthodes nécessaires pour la création de comptes bancaires ainsi que les opérations associées telles que le débit, le crédit et le transfert d'argent entre comptes.</h4>
 
 ![j2EE-github-service](https://github.com/Musta1Pha/Ressources/assets/91842692/9f3fdb5b-6f7f-47cb-9565-8308e931f4f8)
+
 ![j2EE-github-serviceImp](https://github.com/Musta1Pha/Ressources/assets/91842692/a526c7d4-7ee8-4699-ab5f-3af2909d35a3)
 
 - Création des deux classes, 'BankAccountRestApi' et 'CustomerRestApiController', dans le package web. La classe 'BankAccountRestApi' sera responsable de fournir des méthodes permettant de créer de nouveaux comptes, d'effectuer des dépôts et des retraits, ainsi que d'obtenir des informations sur les comptes bancaires, et bien d'autres opérations liées. Cette classe pourra interagir avec l'implémentation de 'BankAccountService' afin d'exécuter les opérations bancaires correspondantes.
@@ -55,6 +58,7 @@ La création des entités JPA (Java Persistence API) est une étape cruciale lor
 - D'autre part, la classe 'CustomerRestApiController' sera utilisée pour créer de nouveaux clients, récupérer les détails des clients, mettre à jour leurs informations, et effectuer d'autres opérations relatives aux clients. Elle pourra également interagir avec l'implémentation de 'BankAccountService' pour exécuter des opérations liées aux clients.
 
 ![j2EE-github-controller](https://github.com/Musta1Pha/Ressources/assets/91842692/7fa92374-873f-4c77-9adc-5fd1cf62e9c1)
+
 ![j2EE-github-controller1](https://github.com/Musta1Pha/Ressources/assets/91842692/f087b461-d13d-4e80-b2f8-700b09599b3b)
 
 - Création de la classe BankAccountMapper afin de convertir des objets entre les entités et les DTOs (Data Transfer Objects) dans le contexte de l'application e-banking. Elle offre des méthodes pour convertir les objets Customer, SavingAccount, CurrentAccount et AccountOperation vers leurs équivalents DTO et vice versa. Les méthodes utilisent la fonction BeanUtils.copyProperties pour copier les propriétés d'un objet source vers un objet cible.
@@ -65,8 +69,13 @@ La création des entités JPA (Java Persistence API) est une étape cruciale lor
 
 ![j2EE-github-DTO](https://github.com/Musta1Pha/Ressources/assets/91842692/6ba76354-6e87-47eb-a5ce-713ef41e65c5)
 
+<h2>Test d'API</h2>
 
+![j2EE-github-customertest](https://github.com/Musta1Pha/Ressources/assets/91842692/9ae3fd1d-8dbc-4758-99cd-e9cf551302d7)
 
+![j2EE-github-banaccounttest](https://github.com/Musta1Pha/Ressources/assets/91842692/1a35a792-7396-4573-a317-27defcf1c861)
+
+<h1> NB : On peut même effectuer le test directement à l'aide de l'outil SWAGGER</h1>
 
 
 
