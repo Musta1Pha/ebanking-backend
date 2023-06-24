@@ -3,8 +3,7 @@
 <h3>Le Backend a été établi en utilisant l'architecture rendu côté client qui est composée d'un ensemble de couches à savoir : </h3>
 
 <p align="center">
-  <img width="460" height="300" src="![j2EE-github](https://github.com/Musta1Pha/Ressources/assets/91842692/7a4db306-aee6-4956-9259-124112058eca)
-">
+  <img width="460" height="300" src="https://github.com/Musta1Pha/Ressources/assets/91842692/7a4db306-aee6-4956-9259-124112058eca">
 </p>
 
 <h2>Partie DAO</h2>
