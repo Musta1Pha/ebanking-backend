@@ -2,14 +2,10 @@ package com.example.ebankingbackend.services;
 
 import com.example.ebankingbackend.dtos.*;
 import com.example.ebankingbackend.entities.BankAccount;
-import com.example.ebankingbackend.entities.CurrentAccount;
 import com.example.ebankingbackend.entities.Customer;
-import com.example.ebankingbackend.entities.SavingAccount;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
-
 public interface BankAccountService {
 
     //Logger log = LoggerFactory.getLogger(this.getClass().getName());
@@ -32,4 +28,8 @@ public interface BankAccountService {
     List<AccountOperationDTO> AccountHistory(String accountId);
 
     AccountHistoryDTO getAccountHistory(String accountId, int page, int size);
+
+    List<CustomerDTO> searchCustomers(String keyword);
+
+    List<BankAccount> getaccountsCustomer(Long CustomerId);
 }

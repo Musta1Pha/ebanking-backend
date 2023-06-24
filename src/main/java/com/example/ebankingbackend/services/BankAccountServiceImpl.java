@@ -11,12 +11,13 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -157,7 +158,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
    @Override
     public List<AccountOperationDTO> AccountHistory(String accountId){
-        List<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountId(accountId);
+        List<AccountOperation> accountOperations = accountOperationRepository.findByBankAccountIdOrderByOperationDateDesc(accountId);
         List<AccountOperationDTO> accountOperationDTOS = accountOperations.stream().map(accountOperation ->
             dtoMapper.fromAccountOperation(accountOperation)).collect(Collectors.toList());
         return accountOperationDTOS;
@@ -166,7 +167,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public AccountHistoryDTO getAccountHistory(String accountId, int page, int size) {
         BankAccount bankAccount = bankAccountRepository.findById(accountId).orElse(null);
-        Page<AccountOperation> byBankAccountId = accountOperationRepository.findByBankAccountId(accountId, PageRequest.of(page,size));
+        Page<AccountOperation> byBankAccountId = accountOperationRepository.findByBankAccountIdOrderByOperationDateDesc(accountId, PageRequest.of(page,size));
         AccountHistoryDTO accountHistoryDTO = new AccountHistoryDTO();
         List<AccountOperationDTO> accountOperationDTOS = byBankAccountId.getContent().stream().map(op->dtoMapper.fromAccountOperation(op)).collect(Collectors.toList());
         accountHistoryDTO.setAccountOperationDTOS(accountOperationDTOS);
@@ -178,5 +179,17 @@ public class BankAccountServiceImpl implements BankAccountService {
         return accountHistoryDTO;
     }
 
+    @Override
+    public List<CustomerDTO> searchCustomers(String keyword){
+        List<Customer> customers = customerRepository.findByNameContains(keyword);
+        List<CustomerDTO> c = customers.stream().map(customer -> dtoMapper.fromCustomer(customer)).collect(Collectors.toList());
+        return c;
+    }
+
+    @Override
+    public List<BankAccount> getaccountsCustomer(Long CustomerId) {
+        Optional<Customer> customer = customerRepository.findById(CustomerId);
+        return bankAccountRepository.findByCustomer(customer);
+    }
 
 }

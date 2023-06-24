@@ -50,7 +50,7 @@ public class EbankingBackendApplication {
         };
     }
 
-    /*@Bean
+    //@Bean
     CommandLineRunner start(CustomerRepository customerRepository, BankAccountRepository bankAccountRepository, AccountOperationRepository accountOperationRepository) {
         return args -> {
             Stream.of("Hassan","Yassine","Aziz").forEach(cust -> {
@@ -96,7 +96,7 @@ public class EbankingBackendApplication {
                 accountOperationRepository.save(accountOperation);
             });
         };
-    }*/
+    }
 
 }
 

@@ -10,12 +10,17 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin("*")
 public class CustomerRestController {
     private BankAccountService bankAccountService;
 
     @GetMapping(path = "/customers")
     public List<CustomerDTO> customers(){
         return bankAccountService.listCustomers();
+    }
+    @GetMapping(path = "/customers/search")
+    public List<CustomerDTO> searchCustomers(@RequestParam(name = "keyword" , defaultValue = "") String keyword){
+        return bankAccountService.searchCustomers(keyword);
     }
 
     @GetMapping(path = "/customers/{id}")
@@ -39,9 +44,5 @@ public class CustomerRestController {
     public void deleteCustomer(@PathVariable Long customerId){
         bankAccountService.deleteCustomer(customerId);
     }
-
-
-
-
 
 }

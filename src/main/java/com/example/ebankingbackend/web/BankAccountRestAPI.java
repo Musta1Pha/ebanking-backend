@@ -1,17 +1,14 @@
 package com.example.ebankingbackend.web;
 
-import com.example.ebankingbackend.dtos.AccountHistoryDTO;
-import com.example.ebankingbackend.dtos.AccountOperationDTO;
-import com.example.ebankingbackend.dtos.BankAccountDTO;
+import com.example.ebankingbackend.dtos.*;
+import com.example.ebankingbackend.entities.BankAccount;
 import com.example.ebankingbackend.services.BankAccountService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin("*")
 public class BankAccountRestAPI {
     private BankAccountService bankAccountService;
 
@@ -40,5 +37,31 @@ public class BankAccountRestAPI {
                                                @RequestParam(name = "size",defaultValue = "5") int size){
         return bankAccountService.getAccountHistory(accountId,page,size);
     }
+
+    @PostMapping(path = "/accounts/debit")
+    public DebitDTO debit(@RequestBody DebitDTO debitDTO){
+        this.bankAccountService.debit(debitDTO.getAccountId(),debitDTO.getAmount(),debitDTO.getDescritpion());
+        return debitDTO;
+    }
+
+    @PostMapping(path = "/accounts/credit")
+    public CreditDTO credit(@RequestBody CreditDTO creditDTO){
+        this.bankAccountService.debit(creditDTO.getAccountId(),creditDTO.getAmount(),creditDTO.getDescritpion());
+        return creditDTO;
+    }
+
+    @GetMapping(path = "/accounts/{customerid}")
+    public List<BankAccount> getaccountsCustomer(@PathVariable Long Customerid){
+        return this.bankAccountService.getaccountsCustomer(Customerid);
+    }
+
+
+    @PostMapping(path = "/accounts/transfert")
+    public void transfert(@RequestBody TransfertRequestDTO transfertRequestDTO){
+        this.bankAccountService.transfert(transfertRequestDTO.getAccountSource(),transfertRequestDTO.getAccountDestination(),transfertRequestDTO.getAmount());
+    }
+
+
+
 
 }
